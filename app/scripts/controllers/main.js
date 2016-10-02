@@ -52,7 +52,7 @@ angular.module('realityApp')
       return airQuality;
     };
 
-    this.getNoiseLevelAsText = function(noiseLevels) {      
+    this.getNoiseLevelAsText = function(noiseLevels) {
       // http://www.converter.cz/tabulky/hluk.htm
       var highValue = noiseLevels['db-high'];
 
@@ -63,5 +63,17 @@ angular.module('realityApp')
         case (highValue >= 30): return 'Low';
         case (highValue < 30): return 'Very low';
       }
+    };
+
+    this.blueZones = function(zones) {
+      return _.filter(zones, function(pz) {
+        return pz.dist <= 100 /*m*/ && pz.type === 'M';
+      }).length > 0;
+    };
+
+    this.paidZones = function(zones) {
+      return _.filter(zones, function(pz) {
+        return pz.dist < 600 && pz.type !== 'M';
+      }).length > 0;
     };
   });

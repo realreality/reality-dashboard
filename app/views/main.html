@@ -44,7 +44,7 @@
       {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
     </div>
     <div class="col-xs-6 text-right">
-      {{main.info.driving.rows[0].elements[0].duration.text}}
+      {{main.info.driving.rows[0].elements[1].duration.text}}
     </div>
   </div>
   <div class="row">
@@ -52,7 +52,7 @@
       {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> Muzeum
     </div>
     <div class="col-xs-6 text-right">
-      {{main.info.driving.rows[0].elements[1].duration.text}}
+      {{main.info.driving.rows[0].elements[0].duration.text}}
     </div>
   </div>
   <div class="row">
@@ -74,17 +74,6 @@
     <div class="col-xs-6 text-right">
       {{main.info.liftagoFromMuzeumTo[0].price | number : 0}} Kč<br>
       <small>{{main.info.driving.rows[0].elements[1].duration.text}}</small>
-    </div>
-  </div>
-  <div class="row">
-    <h4>Location</h4>
-  </div>
-  <div class="row">
-    <div class="col-xs-6">
-      Parking zones
-    </div>
-    <div class="col-xs-6 text-right">
-      @@ZONES@@
     </div>
   </div>
   <div class="row">
@@ -129,6 +118,11 @@
       title="Greeeeen!! At least one park in neighbourhood.">NATURE</span>
       <span class="label label-primary" ng-if="main.info.school.results.length > 2"
       title="Lot of kids around. More than two schools in neighbourhood.">KIDS</span>
+      <span class="label label-danger" ng-if="main.blueZones(main.info.zones)"
+       title="There are blue parking zones around the property. It means that only residents can park here.">RESIDENT&nbsp;PARKING</span>
+      <span class="label label-danger" ng-if="main.paidZones(main.info.zones)"
+       title="Paid parking available (ie. green, orange zones or some combined ones) in close distance.">PAID&nbsp;PARKING</span>
+
     </div>
   </div>
 </div>
