@@ -3,15 +3,23 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-
+html {
+  position: relative;
+  min-height: 100%;
+}
 
 body {
   padding: 20px;
   background: #f5f5f5;
+  margin-bottom: 60px;
 }
 
 h2 {
-  padding-bottom: 40px;
+  padding-bottom: 30px;
+}
+
+.input-group {
+  padding-bottom: 30px;
 }
 
 .logo {
@@ -20,15 +28,17 @@ h2 {
 }
 
 .liftago {
-  height: 45px;
+  height: 40px;
   vertical-align: middle;
 }
 
 /* Custom page footer */
 .footer {
-  position: absolute;
-  bottom: 10px;
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+  position: fixed;
+  bottom: 0;
+  margin-left: -15px;
+  color: #ccc;
+  background-color: #eeeeee;
+  width: 100%;
+  padding: 10px;
 }

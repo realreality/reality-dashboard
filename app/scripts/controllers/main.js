@@ -14,15 +14,21 @@ angular.module('realityApp')
     var _self=this;
 
     this.search = function(address) {
+      _self.loading = true;
+      _self.error = false;
       address += ', Praha';
       Reality.getInfo(address).then(function(results) {
           console.log(results);
+          _self.loading = false;
           _self.info = results;
+      }, function() {
+        _self.loading = false;
+        _self.error = true;
       });
     };
 
     this.formatNoise = function(noiseLevels) {
-      return noiseLevels['db-low'] + ' - ' + noiseLevels['db-high'];
+      return noiseLevels['db-low'] + ' - ' + noiseLevels['db-high'] + ' dB';
     };
 
     this.formatAirQuality = function(airQualityNum) {
@@ -30,19 +36,19 @@ angular.module('realityApp')
 
       var airQuality = 'Very bad'; // for case api will add something worse than 5 ;)
       if (airQualityNum === 5) {
-        airQuality = 'Bad :(';
+        airQuality = 'Bad';
       } else if (airQualityNum === 4) {
-        airQuality = 'Not Good !';
+        airQuality = 'Worse';
       } else if (airQualityNum === 3) {
         airQuality = 'Acceptable';
       } else if (airQualityNum === 2) {
         airQuality = 'Good';
       } else if (airQualityNum === 1) {
-        airQuality = 'Very Good';
+        airQuality = 'Very good';
       }
 
       return airQuality;
-    };  
+    };
 
     this.getNoiseLevelAsText = function(noiseLevels) {
       console.log(noiseLevels);
@@ -50,11 +56,11 @@ angular.module('realityApp')
       var highValue = noiseLevels['db-high'];
 
       switch (true) {
-        case (highValue >= 70): return 'Very High !!!';
-        case (highValue >= 60): return 'High !!';
+        case (highValue >= 70): return 'Very high';
+        case (highValue >= 60): return 'High';
         case (highValue >= 50): return 'Moderate';
         case (highValue >= 30): return 'Low';
-        case (highValue < 30): return 'Very Low';
+        case (highValue < 30): return 'Very low';
       }
     };
   });

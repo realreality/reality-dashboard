@@ -46,7 +46,7 @@ angular.module('realityApp')
     };
 
     this.getInfo = function(address) {
-      return $q(function(resolve) {
+      return $q(function(resolve, reject) {
         return _getLocation(address).then(function(result) {
           var location = result.data.results[0].geometry.location;
           $q.all({
@@ -69,7 +69,11 @@ angular.module('realityApp')
               finalResults[key] = value.data;
             });
             resolve(finalResults);
+          }, function(error) {
+            reject(error);
           });
+        }, function(error) {
+          reject(error);
         });
       });
     };
