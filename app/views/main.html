@@ -1,0 +1,134 @@
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <h2>
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+      Real Reality</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-10">
+    <div class="input-group">
+      <input type="text" class="form-control input-lg" placeholder="e.g. Radlická 50" ng-model="address" aria-describedby="address">
+      <span class="input-group-addon" id="basic-addon2">Praha</span>
+    </div>
+  </div>
+  <div class="col-xs-2">
+    <button class="btn btn-primary btn-lg" ng-click=main.search(address)>Hledej</button>
+  </div>
+</div>
+<div class="info" ng-if="main.info">
+  <div class="row">
+    <h3>Public transit</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      To Muzeum
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.info.transit.rows[0].elements[0].duration.text}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      To <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.info.transit.rows[0].elements[1].duration.text}}
+    </div>
+  </div>
+  <div class="row">
+    <h3>Drive Info</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.info.driving.rows[0].elements[0].duration.text}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      Muzeum
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.info.driving.rows[0].elements[1].duration.text}}
+    </div>
+  </div>
+  <div class="row">
+    <h3><img class="liftago" src="https://www.liftago.com/sites/default/files/logo-160x99.png" alt=""> prices</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      To <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.info.liftago[0].price | number : 0}} Kč<br>
+      <small>{{main.info.driving.rows[0].elements[0].duration.text}}</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      From Muzeum
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.info.liftagoFromMuzeumTo[0].price | number : 0}} Kč<br>
+      <small>{{main.info.driving.rows[0].elements[1].duration.text}}</small>
+    </div>
+  </div>
+  <div class="row">
+    <h3>Location</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      Parking zones
+    </div>
+    <div class="col-xs-6 text-right">
+      @@ZONES@@
+    </div>
+  </div>
+  <div class="row">
+    <h3>Noise</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <span class="glyphicon glyphicon-time"></span>
+      {{main.getNoiseLevelAsText(main.info.noiseDay)}} <br>
+      <small>{{main.formatNoise(main.info.noiseDay)}}</small>
+    </div>
+    <div class="col-xs-6 text-right">
+      <span class="glyphicon glyphicon-bed"></span>
+      {{main.getNoiseLevelAsText(main.info.noiseNight)}} <br>
+      <small>{{main.formatNoise(main.info.noiseNight)}}</small>
+    </div>
+  </div>
+  <div class="row">
+    <h3>Pollution</h3>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      Air quality
+    </div>
+    <div class="col-xs-6 text-right">
+      {{main.formatAirQuality(main.air)}}
+    </div>
+  </div>
+  <div class="row">
+    <h3>Tags</h3>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <span class="label label-primary" ng-if="main.info.pubs.results.length > 3"
+      title="No beer no fun, right? Walk a little bit and choose at least from three pubs/restaurants!">PUBS</span>
+      <span class="label label-primary" ng-if="main.info.nightClubs.results.length > 3"
+      title="Party time! At least two clubs close to property!">PARTY</span>
+      <span class="label label-primary" ng-if="main.info.stops.results.length > 3"
+      title="At least three stops in close distance.">PUBLIC&nbsp;TRANSIT</span>
+      <span class="label label-success" ng-if="main.info.parks.results.length > 0"
+      title="Greeeeen!! At least one park in neighbourhood.">NATURE</span>
+      <span class="label label-primary" ng-if="main.info.schools.results.length > 2"
+      title="Lot of kids around. More than two schools in neighbourhood.">KIDS</span>
+    </div>
+  </div>
+</div>
