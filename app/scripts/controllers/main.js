@@ -14,8 +14,10 @@ angular.module('realityApp')
     var _self=this;
 
     this.search = function(address) {
+      _self.info = null;
       _self.loading = true;
       _self.error = false;
+      _self.address = angular.copy(address);
       address += ', Praha';
       Reality.getInfo(address).then(function(results) {
           console.log(results);

@@ -68,6 +68,7 @@ angular.module('realityApp')
             _.each(results, function(value, key) {
               finalResults[key] = value.data;
             });
+            finalResults.location = result.data.results[0];
             resolve(finalResults);
           }, function(error) {
             reject(error);

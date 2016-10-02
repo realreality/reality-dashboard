@@ -22,7 +22,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      {{address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
+      {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
     </div>
     <div class="col-xs-6 text-right">
       {{main.info.transit.rows[0].elements[1].duration.text}}
@@ -30,7 +30,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      {{address}} <span class="glyphicon glyphicon-arrow-right"></span> Muzeum
+      {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> Muzeum
     </div>
     <div class="col-xs-6 text-right">
       {{main.info.transit.rows[0].elements[0].duration.text}}
@@ -41,7 +41,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      {{address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
+      {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
     </div>
     <div class="col-xs-6 text-right">
       {{main.info.driving.rows[0].elements[0].duration.text}}
@@ -49,7 +49,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      {{address}} <span class="glyphicon glyphicon-arrow-right"></span> Muzeum
+      {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> Muzeum
     </div>
     <div class="col-xs-6 text-right">
       {{main.info.driving.rows[0].elements[1].duration.text}}
@@ -60,7 +60,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      {{address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
+      {{main.address}} <span class="glyphicon glyphicon-arrow-right"></span> <img class="logo" src="http://node5.cz/wp-content/themes/node5/img/logo_new.svg" alt="">
     </div>
     <div class="col-xs-6 text-right">
       {{main.info.liftago[0].price | number : 0}} Kč<br>
@@ -69,7 +69,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      Muzeum <span class="glyphicon glyphicon-arrow-right"></span> {{address}}
+      Muzeum <span class="glyphicon glyphicon-arrow-right"></span> {{main.address}}
     </div>
     <div class="col-xs-6 text-right">
       {{main.info.liftagoFromMuzeumTo[0].price | number : 0}} Kč<br>
@@ -138,5 +138,7 @@
   </div>
 </div>
 <div class="loading" ng-if="main.loading">
-  <div class="alert alert-info" role="alert">Please wait. Loading...</div>
+  <div class="alert alert-info" role="alert">
+    <img src="images/ajax-loader.gif" alt="">
+    Please wait. Loading...</div>
 </div>
