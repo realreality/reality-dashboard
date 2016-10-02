@@ -52,8 +52,7 @@ angular.module('realityApp')
       return airQuality;
     };
 
-    this.getNoiseLevelAsText = function(noiseLevels) {
-      console.log(noiseLevels);
+    this.getNoiseLevelAsText = function(noiseLevels) {      
       // http://www.converter.cz/tabulky/hluk.htm
       var highValue = noiseLevels['db-high'];
 
