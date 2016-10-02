@@ -12,10 +12,6 @@ angular.module('realityApp')
       lng: 14.4302696
     };
 
-    var _getLocation = function(address) {
-      return $http.get('https://crossorigin.me/https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURI(address) + '&key=' + API_KEY);
-    };
-
     var _loadPlaces = function(type, location, radiusMeters) {
       return $http.get('https://crossorigin.me/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + location.lat + ',' + location.lng +
         '&radius=' + radiusMeters + '&type=' + type + '&key=' + API_KEY);
@@ -45,34 +41,55 @@ angular.module('realityApp')
       return $http.get('https://crossorigin.me/http://realreality-app.azurewebsites.net/realreality/rest/atmosphere?lat=' + location.lat + '&lon=' + location.lng);
     };
 
-    this.getInfo = function(address) {
+    this.getLiftago = function(location) {
       return $q(function(resolve, reject) {
-        return _getLocation(address).then(function(result) {
-          var location = result.data.results[0].geometry.location;
-          $q.all({
-            pubs: _loadPlaces('restaurant', location, 500),
-            nightClubs: _loadPlaces('night_club', location, 500),
-            stops: _loadPlaces('transit_station', location, 400),
-            park: _loadPlaces('park', location, 600),
-            school: _loadPlaces('school', location, 1000),
-            liftago: _loadLiftago(location, NODE5_LOCATION),
-            liftagoFromMuzeumTo: _loadLiftago(MUZEUM_METRO_STATION_LOCATION, location),
-            transit: _loadAvailibility('transit', address),
-            driving: _loadAvailibility('driving', address),
-            zones: _loadParkingZones(location, 500),
-            noiseDay: _loadNoise(location, false),
-            noiseNight: _loadNoise(location, true),
-            air: _loadAir(location)
-          }).then(function(results) {
-            var finalResults = {};
-            _.each(results, function(value, key) {
-              finalResults[key] = value.data;
-            });
-            finalResults.location = result.data.results[0];
-            resolve(finalResults);
-          }, function(error) {
-            reject(error);
+        $q.all({
+          liftago: _loadLiftago(location, NODE5_LOCATION),
+          liftagoFromMuzeumTo: _loadLiftago(MUZEUM_METRO_STATION_LOCATION, location)
+        }).then(function(results) {
+          var finalResults = {};
+          _.each(results, function(value, key) {
+            finalResults[key] = value.data;
           });
+          resolve(finalResults);
+        }, function(error) {
+          reject(error);
+        });
+      });
+    };
+
+
+    this.getLocation = function(address) {
+      return $q(function(resolve, reject) {
+        $http.get('https://crossorigin.me/https://maps.googleapis.com/maps/api/geocode/json?address=' +
+          encodeURI(address) + '&key=' + API_KEY).then(function(result) {
+          resolve(result.data.results[0].geometry.location);
+        }, function(error) {
+          reject(error);
+        });
+      });
+    };
+
+    this.getInfo = function(location, address) {
+      return $q(function(resolve, reject) {
+        $q.all({
+          pubs: _loadPlaces('restaurant', location, 500),
+          nightClubs: _loadPlaces('night_club', location, 500),
+          stops: _loadPlaces('transit_station', location, 400),
+          park: _loadPlaces('park', location, 600),
+          school: _loadPlaces('school', location, 1000),
+          transit: _loadAvailibility('transit', address),
+          driving: _loadAvailibility('driving', address),
+          zones: _loadParkingZones(location, 500),
+          noiseDay: _loadNoise(location, false),
+          noiseNight: _loadNoise(location, true),
+          air: _loadAir(location)
+        }).then(function(results) {
+          var finalResults = {};
+          _.each(results, function(value, key) {
+            finalResults[key] = value.data;
+          });
+          resolve(finalResults);
         }, function(error) {
           reject(error);
         });

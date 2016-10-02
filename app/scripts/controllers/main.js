@@ -19,13 +19,20 @@ angular.module('realityApp')
       _self.error = false;
       _self.address = angular.copy(address);
       address += ', Praha';
-      Reality.getInfo(address).then(function(results) {
-          console.log(results);
-          _self.loading = false;
-          _self.info = results;
-      }, function() {
-        _self.loading = false;
-        _self.error = true;
+      Reality.getLocation(address).then(function(location) {
+          Reality.getLiftago(location).then(function(liftago) {
+            _self.liftago = liftago;
+          });
+
+          Reality.getInfo(location, address).then(function (info) {
+            _self.info = info;
+            _self.loading = false;
+            _self.info = info;
+          }, function () {
+            _self.loading = false;
+            _self.error = true;
+          });
+
       });
     };
 
