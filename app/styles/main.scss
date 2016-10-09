@@ -44,3 +44,14 @@ body {
   width: 100%;
   padding: 10px;
 }
+
+header {
+  margin-top: -20px;
+  margin-left: -22px;
+  margin-right: -22px;
+
+  .btn {
+    position: relative;
+    top: -5px;
+  }
+}
